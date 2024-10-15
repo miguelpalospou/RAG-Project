@@ -3,7 +3,7 @@
 
 The following projects consists on a system that transcripts videos from youtube and enables users to interact with it through questions. It's built using LangChain, GPT4 and a simple RAG (Retrieval-Augmented Generation) application using Pinecone and OpenAI's API. The application will allow you to ask questions about any YouTube video.
 
-![Alt text](../images/RAGGS.png)
+![Alt text](./images/RAGGS.png)
 
 
 
