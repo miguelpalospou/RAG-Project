@@ -1,4 +1,4 @@
-def vectorstore(PINECONE_API_KEY, index_name, transcription):
+def vectorstore(OPENAI_API_KEY, PINECONE_API_KEY, index_name, transcription):
     from langchain.text_splitter import RecursiveCharacterTextSplitter
     from langchain_community.document_loaders import TextLoader
     from langchain_openai.embeddings import OpenAIEmbeddings
@@ -12,7 +12,7 @@ def vectorstore(PINECONE_API_KEY, index_name, transcription):
     text_documents = loader.load()
     text_splitter= RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
     documents = text_splitter.split_documents(text_documents)
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(OPENAI_API_KEY)
     
     # loading the transcription into the vector store:
     vectorstore2= DocArrayInMemorySearch.from_documents(documents, embeddings)
@@ -32,6 +32,6 @@ def vectorstore(PINECONE_API_KEY, index_name, transcription):
     )
 
     pinecone= PineconeVectorStore.from_documents(
-    documents, embeddings, index_name=index_name)
+    documents, embeddings, index_name=index_name, pinecone_api_key=PINECONE_API_KEY)
 
     return pinecone
