@@ -35,7 +35,7 @@ if youtube_link and transcription_name and index_name and OPENAI_API_KEY and PIN
 
         # Step 6: Set up the vector store
         st.write("Setting up the vector store...")
-        llm_model, OPENAI_API_KEY, PINECONE_API_KEY = model()
+        llm_model, OPENAI_API_KEY, PINECONE_API_KEY = model(OPENAI_API_KEY, PINECONE_API_KEY)
         # Store the LLM model in session state
         st.session_state.llm_model = llm_model
 
