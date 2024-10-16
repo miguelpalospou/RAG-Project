@@ -19,9 +19,8 @@ The following projects consists on a system that transcripts videos from youtube
 ### Short tutorial on how to run it:
 
 
-[![Watch the video](./images/test.png)](./images/tutorial.mp4)
 
-
+[Watch the video](./images/tutorial.mp4)
 ## Setup
 
 1. Create a virtual environment and install the required packages:
