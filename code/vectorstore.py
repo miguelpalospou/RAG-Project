@@ -12,7 +12,7 @@ def vectorstore(OPENAI_API_KEY, PINECONE_API_KEY, index_name, transcription):
     text_documents = loader.load()
     text_splitter= RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
     documents = text_splitter.split_documents(text_documents)
-    embeddings = OpenAIEmbeddings(OPENAI_API_KEY)
+    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
     
     # loading the transcription into the vector store:
     vectorstore2= DocArrayInMemorySearch.from_documents(documents, embeddings)
