@@ -12,6 +12,8 @@ st.title("🤖YoutuberGPT")
 st.subheader("API Keys")
 OPENAI_API_KEY = st.text_input("Enter your OpenAI API Key:", type="password")
 PINECONE_API_KEY = st.text_input("Enter your Pinecone API Key:", type="password")
+st.write(f"OPENAI_API_KEY: {OPENAI_API_KEY}")
+st.write(f"PINECONE_API_KEY: {PINECONE_API_KEY}")
 
 # Step 1: Input YouTube Link
 youtube_link = st.text_input("Enter YouTube Video Link with quotes:")
