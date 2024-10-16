@@ -6,9 +6,11 @@ langchain-pinecone
 streamlit
 langchain[docarray]
 docarray
-pydantic==1.10.8
+#pydantic==1.10.8
 pytube 
 pytubefix
+langchain-community
+pydantic
 whisper
 python-dotenv
 tiktoken 
