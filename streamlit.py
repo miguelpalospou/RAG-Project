@@ -9,10 +9,16 @@ st.title("🤖YoutuberGPT")
 
 # Input API Keys
 st.subheader("API Keys")
-OPENAI_API_KEY = st.text_input("Enter your OpenAI API Key:", type="password")
-PINECONE_API_KEY = st.text_input("Enter your Pinecone API Key:", type="password")
-st.write(f"OPENAI_API_KEY: {OPENAI_API_KEY}")
-st.write(f"PINECONE_API_KEY: {PINECONE_API_KEY}")
+if "OPENAI_API_KEY" not in st.session_state:
+    st.session_state.OPENAI_API_KEY = st.text_input("Enter your OpenAI API Key:", type="password")
+else:
+    st.session_state.OPENAI_API_KEY = st.text_input("OpenAI API Key", value=st.session_state.OPENAI_API_KEY, type="password")
+
+if "PINECONE_API_KEY" not in st.session_state:
+    st.session_state.PINECONE_API_KEY = st.text_input("Enter your Pinecone API Key:", type="password")
+else:
+    st.session_state.PINECONE_API_KEY = st.text_input("Pinecone API Key", value=st.session_state.PINECONE_API_KEY, type="password")
+
 
 # Step 1: Input YouTube Link
 youtube_link = st.text_input("Enter YouTube Video Link with quotes:")
@@ -23,7 +29,7 @@ transcription_name = st.text_input("Enter a name for the transcription file:")
 # Step 3: Input the Pinecone Index Name
 index_name = st.text_input("Enter a name for the Pinecone Index:")
 
-if youtube_link and transcription_name and index_name and OPENAI_API_KEY and PINECONE_API_KEY:
+if youtube_link and transcription_name and index_name and st.session_state.OPENAI_API_KEY and st.session_state.PINECONE_API_KEY:
     if st.button("Transcribe and Process Video"):
         st.write("Transcribing video... Please wait.")
         transcription_text = transcription(youtube_link, transcription_name)
@@ -31,11 +37,15 @@ if youtube_link and transcription_name and index_name and OPENAI_API_KEY and PIN
 
         # Step 6: Set up the vector store
         st.write("Setting up the vector store...")
-        llm_model, OPENAI_API_KEY, PINECONE_API_KEY = model(OPENAI_API_KEY, PINECONE_API_KEY)  # Note the underscore, we don't need to capture the keys again
-        st.session_state.llm_model = llm_model
-        
-        st.session_state.pinecone_vectorstore = vectorstore(OPENAI_API_KEY,PINECONE_API_KEY, index_name, transcription_text)
-        st.write("Vector store setup complete.")
+        try:
+            llm_model, _, _ = model(st.session_state.OPENAI_API_KEY, st.session_state.PINECONE_API_KEY)
+            st.session_state.llm_model = llm_model
+
+            st.session_state.pinecone_vectorstore = vectorstore(st.session_state.OPENAI_API_KEY, st.session_state.PINECONE_API_KEY, index_name, transcription_text)
+            st.write("Vector store setup complete.")
+        except Exception as e:
+            st.error(f"Error setting up vector store: {str(e)}")
+
 
 # Step 7: Ask Questions
 question = st.text_input("Ask a question about the video:")
