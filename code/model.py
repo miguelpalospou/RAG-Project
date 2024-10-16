@@ -1,5 +1,4 @@
 def model(OPENAI_API_KEY=None, PINECONE_API_KEY=None):
-    
     import os
     from dotenv import load_dotenv
     from langchain_openai import ChatOpenAI
@@ -20,3 +19,4 @@ def model(OPENAI_API_KEY=None, PINECONE_API_KEY=None):
     model = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model="gpt-4o-mini")
     
     return model, OPENAI_API_KEY, PINECONE_API_KEY
+
