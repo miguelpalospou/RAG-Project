@@ -7,7 +7,10 @@ def vectorstore(OPENAI_API_KEY, PINECONE_API_KEY, index_name, transcription):
     from pinecone import ServerlessSpec
     from langchain_community.vectorstores import DocArrayInMemorySearch
     from langchain_core.runnables import RunnableParallel, RunnablePassthrough
-
+    print(f"OpenAI API Key: {OPENAI_API_KEY}")  # For debugging
+    print(f"Pinecone API Key: {PINECONE_API_KEY}")  # For debugging
+    if not OPENAI_API_KEY or not PINECONE_API_KEY:
+        raise ValueError("OpenAI API Key or Pinecone API Key not provided.")
     loader= TextLoader("transcription.txt")
     text_documents = loader.load()
     text_splitter= RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
