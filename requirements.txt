@@ -14,7 +14,7 @@ pinecone-client==5.0.1
 scikit-learn==1.5.2
 ruff==0.6.9
 google-api-core==2.21.0
-ffmpeg
+ffmpeg==1.4
 git+https://github.com/openai/whisper.git
 google-api-core
 protoc-gen-openapiv2
