@@ -7,6 +7,7 @@ The following projects consists on a system that transcripts videos from youtube
 
 
 
+
 ## Content
 
 1. main_detailed.ipynb: this is the comprehensive notebook that includes testings, detailed explanations and so on. Designed to walk users through the process.
@@ -14,6 +15,10 @@ The following projects consists on a system that transcripts videos from youtube
 2. main.ipynb. Main notebook that centralizes all encapsulated functions built within the other .py files: transcription.py, vectorstore.py, model.py and chains.py.
 
 3. Streamlit: Amazing app created by Miguel to make it easier for users to play around with the model.
+
+### Short tutorial on how to run it:
+
+![Watch the video](./images/tutorial.mp4)
 
 
 ## Setup
