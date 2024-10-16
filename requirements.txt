@@ -19,3 +19,4 @@ git+https://github.com/openai/whisper.git
 google-api-core
 protoc-gen-openapiv2
 whisper
+grpcio==1.66.2  # Or the latest version that matches other dependencies
