@@ -1,4 +1,3 @@
-
 import streamlit as st
 from code.transcription import transcription
 from code.model import model
@@ -12,8 +11,6 @@ st.title("🤖YoutuberGPT")
 st.subheader("API Keys")
 OPENAI_API_KEY = st.text_input("Enter your OpenAI API Key:", type="password")
 PINECONE_API_KEY = st.text_input("Enter your Pinecone API Key:", type="password")
-st.write(f"OPENAI_API_KEY: {OPENAI_API_KEY}")
-st.write(f"PINECONE_API_KEY: {PINECONE_API_KEY}")
 
 # Step 1: Input YouTube Link
 youtube_link = st.text_input("Enter YouTube Video Link with quotes:")
@@ -28,23 +25,22 @@ if youtube_link and transcription_name and index_name and OPENAI_API_KEY and PIN
     if st.button("Transcribe and Process Video"):
         # Step 4: Transcribe the video
         st.write("Transcribing video... Please wait.")
-        transcription_text = transcription(youtube_link, transcription_name)
-        st.write("Transcription complete!")
-
-        # Step 5: Display the transcription
-        #st.write("Transcription:")
-        #st.write(transcription_text)
+        try:
+            transcription_text = transcription(youtube_link, transcription_name)
+            st.write("Transcription complete!")
+        except Exception as e:
+            st.error(f"Error during transcription: {e}")
+            st.stop()
 
         # Step 6: Set up the vector store
         st.write("Setting up the vector store...")
-        st.write(f"OPENAI_API_KEY: {OPENAI_API_KEY}")
-        st.write(f"PINECONE_API_KEY: {PINECONE_API_KEY}")
-        llm_model, OPENAI_API_KEY, PINECONE_API_KEY = model(OPENAI_API_KEY, PINECONE_API_KEY)
-        # Store the LLM model in session state
-        st.session_state.llm_model = llm_model
-
-        st.session_state.pinecone_vectorstore = vectorstore(PINECONE_API_KEY, index_name, transcription_text)
-        st.write("Vector store setup complete.")
+        try:
+            llm_model, OPENAI_API_KEY, PINECONE_API_KEY = model(OPENAI_API_KEY, PINECONE_API_KEY)
+            st.session_state.llm_model = llm_model
+            st.session_state.pinecone_vectorstore = vectorstore(PINECONE_API_KEY, index_name, transcription_text)
+            st.write("Vector store setup complete.")
+        except Exception as e:
+            st.error(f"Error setting up vector store: {e}")
 
 # Step 7: Ask Questions
 question = st.text_input("Ask a question about the video:")
