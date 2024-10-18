@@ -79,7 +79,7 @@ embeddings = OpenAIEmbeddings(
 ```
 ## Vector Stores
 
-#### For the following examples, we use a PDF document loader to load a document and split it into pages:
+#### For the following examples, we use a document loader to load a document and split it into pages:
 ```
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -105,11 +105,18 @@ retriever.invoke("Information to retrieve")
 ## Retrievers
 
 #### The VectorStoreRetriever class wraps vector stores to allow easy querying. Some configuration options include:
-
+```
 search_type: Type of search to perform ("similarity" (default), "mmr", or "similarity_score_threshold")
+
 search_kwargs: Additional arguments to pass to the search function
+
 k: Number of documents to return (default is 4)
+
 score_threshold: Minimum relevance threshold (default is 0)
+
 fetch_k: Number of documents to pass to the MMR algorithm (default is 20)
+
 lambda_mult: Diversity of results in MMR (1 for minimum diversity, 0 for maximum diversity)
+
 filter: Filter by document metadata
+```
